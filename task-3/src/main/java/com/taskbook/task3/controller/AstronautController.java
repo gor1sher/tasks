@@ -28,7 +28,7 @@ public class AstronautController {
     public ResponseEntity<Astronaut> getAstronautById(@PathVariable(name = "id") Long id){
         log.info("получение астронавта по идентификатору id: {}", id);
 
-        return astronautService.astronautById();
+        return ResponseEntity.ok(astronautService.astronautById(id));
     }
 
     @PostMapping

@@ -15,22 +15,22 @@ public class AstronautService {
     private final AstronautManager astronautManager;
 
     public List<Astronaut> getAstronauts() {
-        astronautManager.getAstronauts();
+        return astronautManager.getAstronauts();
     }
 
-    public Astronaut astronautById() {
-        return astronautManager.astronautById();
+    public Astronaut astronautById(Long id) {
+        return astronautManager.astronautById(id);
     }
 
     public void addAstronaut(Astronaut astronaut) {
-        astronautManager.addAstronaut();
+        astronautManager.addAstronaut(astronaut);
     }
 
     public void updateData(Astronaut astronaut) {
-        astronautManager.updateData();
+        astronautManager.updateData(astronaut);
     }
 
     public void deleteData(Long id) {
-        astronautManager.deleteData();
+        astronautManager.deleteData(id);
     }
 }

@@ -16,22 +16,22 @@ public class AstronautManager {
     private final AstronautDao astronautDao;
 
     public List<Astronaut> getAstronauts() {
-        astronautDao.
+        return astronautDao.findAll();
     }
 
-    public Astronaut astronautById() {
-
+    public Astronaut astronautById(Long id) {
+        return astronautDao.findById(id);
     }
 
-    public void addAstronaut() {
-
+    public void addAstronaut(Astronaut astronaut) {
+        astronautDao.insertData(astronaut);
     }
 
-    public void updateData() {
-
+    public void updateData(Astronaut astronaut) {
+        astronautDao.updateData(astronaut);
     }
 
-    public void deleteData() {
-
+    public void deleteData(Long id) {
+        astronautDao.deleteData(id);
     }
 }
