@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -21,6 +22,16 @@ public class AstronautManager {
 
     public Astronaut astronautById(Long id) {
         return astronautDao.findById(id);
+    }
+
+    public List<Astronaut> getAstronautsByPagination(String name,
+                                                     String craft,
+                                                     LocalDate missionStartDate,
+                                                     LocalDate missionEndDate,
+                                                     int page,
+                                                     int size) {
+
+        return astronautDao.findDataByPagination(name, craft, missionStartDate, missionEndDate, page, size);
     }
 
     public void addAstronaut(Astronaut astronaut) {

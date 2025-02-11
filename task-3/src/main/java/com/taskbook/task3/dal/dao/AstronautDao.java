@@ -3,10 +3,12 @@ package com.taskbook.task3.dal.dao;
 import com.taskbook.task3.dal.entities.Astronaut;
 import com.taskbook.task3.exception.AstronautNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.query.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -32,6 +34,32 @@ public class AstronautDao {
     public Astronaut findById(Long id) {
         try (var session = sessionFactory.openSession()) {
             return session.get(Astronaut.class, id);
+        }
+    }
+
+    public List<Astronaut> findDataByPagination(String name,
+                                                String craft,
+                                                LocalDate missionStartDate,
+                                                LocalDate missionEndDate,
+                                                int page,
+                                                int size) {
+
+        try (var session = sessionFactory.openSession()){
+            String hql = "FROM Astronaut a WHERE " +
+                    "(:name IS NULL OR a.name LIKE :name) AND " +
+                    "(:craft IS NULL OR a.craft LIKE :craft) AND " +
+                    "(:missionStartDate IS NULL OR (a.missionStartDate >= :missionStartDate))";
+
+            Query<Astronaut> query = session.createQuery(hql, Astronaut.class);
+            query.setParameter("name", name != null ? "%" + name + "%" : null);
+            query.setParameter("craft", craft !=null ? "%" + craft + "%" : null);
+            query.setParameter("missionStartDate", missionStartDate);
+            //query.setParameter("missionEndDate", missionEndDate);
+
+            query.setFirstResult(page*size);
+            query.setMaxResults(size);
+
+            return query.getResultList();
         }
     }
 

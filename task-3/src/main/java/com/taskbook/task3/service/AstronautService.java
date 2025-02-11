@@ -3,9 +3,9 @@ package com.taskbook.task3.service;
 import com.taskbook.task3.dal.entities.Astronaut;
 import com.taskbook.task3.manager.AstronautManager;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -18,8 +18,18 @@ public class AstronautService {
         return astronautManager.getAstronauts();
     }
 
-    public Astronaut astronautById(Long id) {
+    public Astronaut getAstronautById(Long id) {
         return astronautManager.astronautById(id);
+    }
+
+    public List<Astronaut> getAstronautsByPagination(String name,
+                                                     String craft,
+                                                     LocalDate missionStartDate,
+                                                     LocalDate missionEndDate,
+                                                     int page,
+                                                     int size) {
+
+        return astronautManager.getAstronautsByPagination(name, craft, missionStartDate, missionEndDate, page, size);
     }
 
     public void addAstronaut(Astronaut astronaut) {

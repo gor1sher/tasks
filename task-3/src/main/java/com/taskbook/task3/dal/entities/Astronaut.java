@@ -1,5 +1,6 @@
 package com.taskbook.task3.dal.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,6 +15,10 @@ public class Astronaut {
     private Long id;
     private String name;
     private String craft;
+
+    @JsonProperty("mission_start_date")
     private LocalDate missionStartDate;
+
+    @JsonProperty("mission_end_date")
     private LocalDate missionEndDate;
 }
